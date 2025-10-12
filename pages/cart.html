@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart - Promise</title>
+  <link rel="icon" type="image/x-icon" href="/public/favicon.ico" />
+  <link rel="stylesheet" href="/dist/styles.css" />
+</head>
+
+<body class="flex min-h-screen flex-col bg-pink-100">
+  <!-- NAVBAR -->
+  <nav class="flex bg-pink-200 shadow-lg">
+    <div class="container mx-auto flex flex-col items-center justify-between gap-4 p-4 md:flex-row md:gap-0">
+      <div class="flex w-full items-center justify-between md:w-auto">
+        <a href="/pages/home.html"
+          class="font-GreatVibes text-3xl text-pink-900 transition-colors hover:text-pink-700 md:text-4xl lg:pl-16 lg:text-5xl">Pro<span
+            class="font-GreatVibes text-pink-600 hover:text-pink-800">mise</span></a>
+        <!-- mobile menu button -->
+        <button id="nav-toggle" aria-controls="nav-menu" aria-expanded="false"
+          class="inline-flex items-center justify-center rounded-md p-2 text-pink-900 hover:bg-white/5 focus:ring-2 focus:ring-pink-400 focus:outline-none md:hidden">
+          <span class="sr-only">Open main menu</span>
+          <!-- hamburger icon -->
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+      <ul id="nav-menu"
+        class="hidden flex-col items-center space-y-2 text-center text-lg text-pink-950 sm:text-xl md:flex md:flex-row md:space-y-0 md:space-x-10">
+        <li>
+          <a href="/pages/home.html" class="px-2 align-middle hover:text-pink-500 md:px-0">Home</a>
+        </li>
+        <li>
+          <a href="/pages/products.html" class="px-2 align-middle hover:text-pink-500 md:px-0">Products</a>
+        </li>
+        <li>
+          <a href="/pages/about.html" class="px-2 align-middle hover:text-pink-500 md:px-0">About</a>
+        </li>
+        <li>
+          <a href="/pages/cart.html" class="px-2 align-middle hover:text-pink-500 md:px-0">🛒 Cart</a>
+        </li>
+        <li>
+          <a href="#" id="open-login" role="button" aria-haspopup="dialog" aria-controls="login-modal"
+            class="inline-block cursor-pointer rounded-lg bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-1 align-middle font-sans text-sm text-white shadow-[0_0_18px_rgba(236,72,153,0.35)] transition-all duration-300 hover:from-pink-600 hover:to-rose-600 hover:shadow-[0_0_24px_rgba(236,72,153,0.5)] focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-pink-200 sm:text-base">Sign
+            In</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <main class="font-Tinos min-h-screen bg-pink-100 text-pink-900">
+    <header
+      class="relative overflow-hidden bg-gradient-to-b from-pink-50 via-pink-100 to-pink-200 px-6 py-12 text-center sm:py-16 md:py-20">
+      <div class="mx-auto max-w-3xl px-4 sm:max-w-4xl md:max-w-5xl">
+        <h1 class="animate-glow font-RobotoCondensed text-3xl font-bold text-pink-800 sm:text-4xl md:text-6xl">
+          <span class="font-Quintessential">Y</span>OUR
+          <span class="text-pink-600"><span class="font-Quintessential">C</span>ART</span>
+        </h1>
+      </div>
+    </header>
+
+    <section class="container mx-auto px-4 py-6 sm:px-6">
+      <div class="flex flex-col-reverse gap-8 lg:flex-row">
+        <section class="flex-1">
+          <div
+            class="flex min-h-[360px] flex-col items-center justify-center rounded-2xl border border-pink-200 bg-white p-10 text-center shadow-[0_10px_30px_rgba(236,72,153,0.06)]">
+            <h2 class="font-Tinos text-3xl font-semibold text-pink-800 sm:text-4xl">
+              Your cart is empty.
+            </h2>
+            <p class="font-unna mt-4 max-w-md text-base leading-relaxed text-pink-700/80 sm:text-lg">
+              Browse our products and add items to see them here. We’ll save
+              your selections once you add them.
+            </p>
+            <a href="/pages/products.html"
+              class="mt-8 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-rose-500 px-8 py-3 font-medium text-white transition hover:shadow-[0_0_40px_rgba(236,72,153,0.25)] focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-pink-100 focus:outline-none">Start
+              Shopping</a>
+          </div>
+        </section>
+
+        <aside
+          class="w-full self-start rounded-xl border border-transparent bg-white p-6 shadow-lg lg:sticky lg:top-24 lg:w-96">
+          <h3 class="mb-4 text-2xl font-semibold text-pink-800">
+            Order Summary
+          </h3>
+          <div class="mb-2 flex justify-between text-pink-700/80">
+            <span>Subtotal</span>
+            <span>$0.00</span>
+          </div>
+          <div class="mb-4 flex justify-between text-pink-700/80">
+            <span>Estimated Shipping</span>
+            <span>$0.00</span>
+          </div>
+          <hr class="my-4 border-t border-pink-100" />
+          <div class="mb-6 flex justify-between text-lg font-semibold text-pink-800">
+            <span>Total</span>
+            <span>$0.00</span>
+          </div>
+          <button disabled
+            class="w-full cursor-not-allowed rounded-md bg-pink-300 py-3 font-semibold text-white/80 opacity-90">
+            Cart is Empty
+          </button>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-pink-200 text-center text-pink-900">
+    <div class="animate-glow-slow my-2 mt-3 align-middle text-sm sm:text-base">
+      © 2025
+      <span class="font-GreatVibes align-middle text-xl text-pink-600 sm:text-2xl">Pro</span><span
+        class="font-GreatVibes text-xl text-pink-700 sm:text-2xl">mise</span>
+      | Designed for loving couple
+    </div>
+  </footer>
+
+  <script src="/js/jquery-3.7.1.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/reveal.js"></script>
+</body>
+
+</html>

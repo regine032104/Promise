@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products - Promise</title>
+  <link rel="icon" type="image/x-icon" href="/public/favicon.ico" />
+  <link rel="stylesheet" href="/dist/styles.css" />
+</head>
+
+<body class="flex min-h-screen flex-col bg-pink-100">
+  <!-- NAVBAR -->
+  <nav class="flex bg-pink-200 shadow-lg">
+    <div class="container mx-auto flex flex-col items-center justify-between gap-4 p-4 md:flex-row md:gap-0">
+      <div class="flex w-full items-center justify-between md:w-auto">
+        <a href="/pages/home.html"
+          class="font-GreatVibes text-3xl text-pink-900 transition-colors text-shadow-pink-600 hover:text-pink-700 md:text-4xl lg:pl-16 lg:text-5xl">
+          Pro<span class="font-GreatVibes text-pink-600 hover:text-pink-800">mise</span></a>
+        <!-- mobile menu button -->
+        <button id="nav-toggle" aria-controls="nav-menu" aria-expanded="false"
+          class="inline-flex items-center justify-center rounded-md p-2 text-amber-50 hover:bg-white/5 focus:ring-2 focus:ring-amber-500 focus:outline-none md:hidden">
+          <span class="sr-only">Open main menu</span>
+          <!-- hamburger icon -->
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+      <ul id="nav-menu"
+        class="hidden flex-col items-center space-y-2 text-center text-lg text-pink-950 sm:text-xl md:flex md:flex-row md:space-y-0 md:space-x-10">
+        <li>
+          <a href="/pages/home.html" class="px-2 align-middle hover:text-pink-500 md:px-0">Home</a>
+        </li>
+        <li>
+          <a href="/pages/products.html" class="px-2 align-middle hover:text-pink-500 md:px-0">Products</a>
+        </li>
+        <li>
+          <a href="/pages/about.html" class="px-2 align-middle hover:text-pink-500 md:px-0">About</a>
+        </li>
+        <li>
+          <a href="/pages/cart.html" class="px-2 align-middle hover:text-pink-500 md:px-0">🛒 Cart</a>
+        </li>
+        <li>
+          <a href="#" id="open-login" role="button" aria-haspopup="dialog" aria-controls="login-modal"
+            class="inline-block cursor-pointer rounded-lg bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-1 align-middle font-sans text-sm text-white shadow-[0_0_18px_rgba(236,72,153,0.35)] transition-all duration-300 hover:from-pink-600 hover:to-rose-600 hover:shadow-[0_0_24px_rgba(236,72,153,0.5)] focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:ring-offset-pink-200 sm:text-base">Sign
+            In</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="relative overflow-hidden bg-gradient-to-b from-pink-50 via-pink-100 to-pink-200 py-20 text-center">
+    <div class="relative z-10 mx-auto max-w-4xl px-4 sm:max-w-5xl">
+      <h1 class="font-Tinos text-4xl text-pink-800 sm:text-5xl md:text-6xl lg:text-7xl">
+        Our <span class="text-pink-600">Products</span>
+      </h1>
+      <p class="font-unna-bold mt-4 text-base text-pink-50/80 sm:text-lg md:text-2xl">
+        Browse our curated collection of wedding attire crafted for elegance,
+        comfort and timeless memories.
+      </p>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="mx-auto max-w-screen-xl flex-1 py-10">
+    <div class="flex flex-col gap-8">
+      <!-- ALL PRODUCTS -->
+      <h2
+        class="font-Tinos text-center text-2xl leading-none tracking-widest text-pink-950 uppercase md:tracking-[0.6em] lg:tracking-[0.8em]">
+        All Products
+      </h2>
+      <!-- HORIZONTAL FILTER BAR (moved under hero) -->
+      <div class="w-full">
+        <div id="product-filters" class="mb-6 rounded-lg bg-pink-50 p-4 shadow-sm">
+          <div class="mx-auto max-w-screen-xl px-2">
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex items-center gap-3 text-pink-700">
+                <button id="toggle-filters"
+                  class="inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-sm text-pink-700 hover:bg-pink-100">
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L15 14.414V19a1 1 0 01-1.447.894L9 18v-3.586L3.293 6.707A1 1 0 013 6V4z">
+                    </path>
+                  </svg>
+                  <span class="hidden sm:inline">Hide filters</span>
+                </button>
+                <div class="text-sm text-pink-600">111 Results</div>
+              </div>
+              <div class="text-sm text-pink-700">
+                Sort:
+                <select id="sort-select"
+                  class="ml-2 cursor-pointer rounded border border-pink-100 bg-pink-50 px-2 py-1 text-pink-700">
+                  <option>Featured</option>
+                  <option>Best selling</option>
+                  <option>Alphabetically, A-Z</option>
+                  <option>Alphabetically, Z-A</option>
+                  <option>Price, low to high</option>
+                  <option>Price, high to low</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="filter-controls" class="mt-4 flex w-full flex-wrap items-center gap-3">
+              <button class="filter-btn rounded border border-pink-200 bg-white px-4 py-2 text-sm text-pink-700">
+                Price <span class="ml-2">▾</span>
+              </button>
+              <button class="filter-btn rounded border border-pink-200 bg-white px-4 py-2 text-sm text-pink-700">
+                Availability <span class="ml-2">▾</span>
+              </button>
+              <button class="filter-btn rounded border border-pink-200 bg-white px-4 py-2 text-sm text-pink-700">
+                Size <span class="ml-2">▾</span>
+              </button>
+              <button class="filter-btn rounded border border-pink-200 bg-white px-4 py-2 text-sm text-pink-700">
+                Silhouette <span class="ml-2">▾</span>
+              </button>
+              <button class="filter-btn rounded border border-pink-200 bg-white px-4 py-2 text-sm text-pink-700">
+                Length <span class="ml-2">▾</span>
+              </button>
+              <button class="filter-btn rounded border border-pink-200 bg-white px-4 py-2 text-sm text-pink-700">
+                Sleeves <span class="ml-2">▾</span>
+              </button>
+              <button class="filter-btn rounded border border-pink-200 bg-white px-4 py-2 text-sm text-pink-700">
+                Collection <span class="ml-2">▾</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-auto max-w-screen-xl">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Product Card -->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-1.webp" alt="“Isabella” Classic Lace Princess Dress"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  “Isabella” Classic Lace Princess Dress
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features:bodice, long illusion sleeves, beaded details,
+                  cathedral veil compatible.
+                </p>
+                <p class="product-full hidden">
+                  Royal Romance at Its Finest. The Isabella Gown enchants with
+                  a fitted lace bodice and voluminous tulle skirt. Its
+                  illusion sleeves and sparkling embroidery bring a touch of
+                  regal charm—perfect for the bride who loves tradition,
+                  luxury, and grace.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$200.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product Card 2 -->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-2.webp" alt="Willow Ethereal Boho-Chic Woodland Gown"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  "Willow" Ethereal Boho-Chic Woodland Gown
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features: Plunging V-neck, delicate floral lace bodice, airy
+                  chiffon skirt, spaghetti straps with off-shoulder lace
+                  sleeves, light train.
+                </p>
+                <p class="product-full hidden">
+                  “Willow” Ethereal Boho-Chic Woodland Gown. Inspired by
+                  golden hour in a hidden meadow, the Willow Gown captures a
+                  spirit of effortless beauty. The light chiffon skirt and
+                  delicate lacework create movement and romance, perfect for
+                  an outdoor celebration. Its plunging neckline is balanced by
+                  whimsical off-shoulder sleeves, offering a dreamy, bohemian
+                  silhouette for the free-spirited bride.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$100.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product Card 3 -->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-3.jpg" alt="Willow Ethereal Boho-Chic Woodland Gown"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  "enchant" Ethereal Boho-Chic Woodland Gown
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features: Classic V-neck, intricate beaded and lace bodice,
+                  wide supportive straps, dramatic full tulle skirt,
+                  chapel-length train.
+                </p>
+                <p class="product-full hidden">
+                  Wildflower Whimsy and Effortless Grace. Inspired by golden
+                  hour in a hidden meadow, the Willow Gown captures a spirit
+                  of effortless beauty. The light chiffon skirt and delicate
+                  lacework create movement and romance, perfect for an outdoor
+                  celebration. Its plunging neckline is balanced by whimsical
+                  off-shoulder sleeves, offering a dreamy, bohemian silhouette
+                  for the free-spirited bride.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$400.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product Card 4 -->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-4.jpg" alt="“Rosalie” Floral Garden Wedding Dress"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  “Rosalie” Floral Garden Wedding Dress
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features: Off-shoulder floral lace, sheer layers, blush
+                  undertone, long soft veil.
+                </p>
+                <p class="product-full hidden">
+                  Where Nature Meets Elegance. Light, feminine, and full of
+                  charm, the Rosalie Dress is designed for romantic outdoor
+                  ceremonies. The off-shoulder neckline and layered lace give
+                  a soft, whimsical touch, while the long veil completes the
+                  dreamy bridal look.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$350.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product Card 5 -->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-5.jpg" alt="“Seraphina” Vintage-Inspired Corset Gown"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  “Seraphina” Vintage-Inspired Corset Gown
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features: Corset bodice, 3D lace appliqués, off-shoulder
+                  sleeves, golden-beige hue.
+                </p>
+                <p class="product-full hidden">
+                  The Seraphina Gown blends vintage artistry with modern
+                  romance. Featuring a lace-up corset bodice, 3D floral
+                  appliqués, and a champagne undertone, it’s the definition of
+                  intricate elegance. Every detail is made to make you glow
+                  with confidence and grace.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$180.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product Card 6 -->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-6.webp" alt="“Celeste” Long-Sleeve Lace Ball Gown"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  “Celeste” Long-Sleeve Lace Ball Gown
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features: Lace embroidery, long sleeves, sweetheart
+                  neckline, chapel train.
+                </p>
+                <p class="product-full hidden">
+                  Timeless Grace in Every Thread Step into your fairytale with
+                  the Celeste Gown, a romantic masterpiece adorned with
+                  intricate lace from bodice to hem. The illusion neckline and
+                  sheer long sleeves add a touch of sophistication, while the
+                  full tulle skirt creates a royal silhouette. Perfect for
+                  brides who dream of elegance and tradition combined.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$450.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Product Card 7 -->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-7.webp" alt="Aurora” Off-Shoulder Lace Backless Dress"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  "Aurora” Off-Shoulder Lace Backless Dress
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features: Off-shoulder neckline, backless design, floral
+                  lace details, flowing train.
+                </p>
+                <p class="product-full hidden">
+                  Soft, Dreamy, and Effortlessly Romantic The Aurora Dress
+                  captures the essence of ethereal beauty. Its off-shoulder
+                  neckline and low back create a modern yet delicate look,
+                  while floral lace appliqués flow gracefully over soft tulle.
+                  Ideal for garden or destination weddings where love feels
+                  light and free.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$450.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Product Card 8-->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-8.webp" alt="Willow Ethereal Boho-Chic Woodland Gown"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  “Willow” Ethereal Boho-Chic Woodland Gown
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features: Classic V-neck, intricate beaded and lace bodice,
+                  wide supportive straps, dramatic full tulle skirt,
+                  chapel-length train.
+                </p>
+                <p class="product-full hidden">
+                  Fairytale Grandeur with Modern Sparkle The Aurora Gown is
+                  designed for the bride who wants a grand entrance. It blends
+                  the classic Ballgown silhouette with dazzling modern detail.
+                  The magnificent skirt is balanced by a corset-style bodice
+                  that features intricate beadwork and shimmering floral
+                  appliqués, creating a breathtaking and truly regal look that
+                  sparkles under the lights.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$450.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Product Card 9 -->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-9.jpg" alt="“Elara” Medieval-Inspired Satin Gown"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  “Elara” Medieval-Inspired Satin Gown
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features: Off-shoulder with flowing sleeves, embroidered
+                  satin bodice, cathedral train.
+                </p>
+                <p class="product-full hidden">
+                  Regal Beauty with Enchanted Flair Inspired by timeless
+                  romance, the Elara Gown combines royal satin draping with
+                  vintage embroidery. Flowing sleeves and a sculpted corset
+                  waist give a powerful yet graceful silhouette—perfect for
+                  brides who want to feel like queens from a fantasy tale.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$450.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+          <!-- Product Card 10 -->
+          <article
+            class="flex flex-col overflow-hidden rounded-lg border border-pink-200 bg-white text-pink-950 shadow-[0_8px_30px_rgba(236,72,153,0.08)]">
+            <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
+              <img src="/images/pp-10.webp" alt="“Valentina” Grand Bow Satin Ball Gown"
+                class="h-full w-full object-cover" />
+              <button class="absolute top-3 right-3 rounded-full bg-white/80 p-2 text-pink-600 shadow">
+                ♡
+              </button>
+            </div>
+            <div class="flex flex-1 flex-col justify-between p-4">
+              <div>
+                <h3 class="font-semibold text-pink-700">
+                  “Valentina” Grand Bow Satin Ball Gown
+                </h3>
+                <p class="mt-1 text-pink-600">
+                  Features: Strapless design, satin fabric, oversized bow
+                  train, minimalist silhouette.
+                </p>
+                <p class="product-full hidden">
+                  Modern Luxury, Bold Sophistication. The Valentina Dress
+                  makes an unforgettable entrance. Crafted from sleek satin
+                  with a grand sculpted bow at the back, this strapless gown
+                  radiates glamour and confidence. A statement piece for
+                  brides who embrace elegance with a modern edge.
+                </p>
+              </div>
+              <div class="mt-4 flex items-center justify-between">
+                <div class="font-bold text-pink-700">$450.00</div>
+                <button
+                  class="cursor-pointer rounded-md bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 text-white transition hover:shadow-[0_0_30px_rgba(236,72,153,0.25)]">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-pink-200 text-center text-pink-900">
+    <div class="-slow my-2 mt-3 align-middle text-sm sm:text-base">
+      © 2025
+      <span class="font-GreatVibes align-middle text-xl text-pink-600 sm:text-2xl">Pro</span><span
+        class="font-GreatVibes text-xl text-pink-700 sm:text-2xl">mise</span>
+      | Designed for loving couple
+    </div>
+  </footer>
+
+  <script src="/js/jquery-3.7.1.min.js"></script>
+  <script src="/js/filter.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/reveal.js"></script>
+</body>
+
+</html>
