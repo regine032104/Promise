@@ -9,7 +9,7 @@
   <script src="https://unpkg.com/motion@latest/dist/motion.umd.js"></script>
 </head>
 
-<body class="flex min-h-screen flex-col bg-pink-100">
+<body class="flex min-h-screen flex-col bg-whites">
   <!-- NAVBAR -->
   <?php include('../components/navbar.php'); ?>
 
@@ -18,7 +18,6 @@
   $title = "Welcome to";
   $highlight = "Promise";
   $subtitle = "We design and curate stunning wedding dresses for brides and grooms, blending elegance, comfort, and romance—because every couple deserves to shine on their wedding day.";
-  $extra_class = "py-32";
   include('../components/hero.php');
   ?>
 
@@ -31,14 +30,14 @@
         <div class="flex items-center gap-6">
           <div class="h-px flex-1 bg-pink-200"></div>
           <h2
-            class="font-Tinos text-center text-2xl leading-none tracking-widest text-pink-950 uppercase md:tracking-[0.6em] lg:tracking-[0.8em]">
+            class="font-Tinos text-center text-2xl leading-none tracking-widest text-gray-800 xt-pink-950 uppercase md:tracking-[0.6em] lg:tracking-[0.8em]">
             OUR BRIDES
           </h2>
           <div class="h-px flex-1 bg-pink-200"></div>
         </div>
 
         <p
-          class="font-Unna-regular mx-auto mt-6 mb-24 max-w-3xl text-center text-base leading-7 text-pink-700/80 sm:text-lg md:text-xl">
+          class="font-Unna-regular mx-auto mt-6 mb-24 max-w-5xl text-center text-base leading-7 text-purple-900 sm:text-lg md:text-xl">
           Promise couture aesthetics can be summed up in three words:
           feminine, flattering, and modern. Her wedding gowns are a
           magnificent assemblage of intricate beadworks and graceful patterns
@@ -51,14 +50,14 @@
       <div class="group relative cursor-pointer">
         <div class="absolute top-3 right-3 flex items-center gap-3 p-1">
           <button id="reviews-prev" aria-label="Previous reviews" aria-controls="reviews-row"
-            class="cursor-pointer rounded-md border border-white/60 bg-white p-2 text-pink-800 opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100 focus:outline-none">
+            class="cursor-pointer rounded-md border border-white/60 bg-white p-2 text-gray-800 opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button id="reviews-next" aria-label="Next reviews" aria-controls="reviews-row"
-            class="cursor-pointer rounded-md border border-white/60 bg-white p-2 text-pink-800 opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100 focus:outline-none">
+            class="cursor-pointer rounded-md border border-white/60 bg-white p-2 text-gray-800 opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100 focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -79,7 +78,7 @@
                   class="h-full w-full object-cover" />
               </div>
               <figcaption class="mt-4 text-center">
-                <div class="font-semibold text-pink-800">Gwynne M.</div>
+                <div class="font-semibold text-gray-800">Gwynne M.</div>
                 <blockquote class="mt-2 min-h-[3.5rem] text-sm text-slate-700 sm:min-h-[3rem]">
                   "I knew the Elmi was everything I wanted, but I was nervous
                   to order online. I did it anyway and was blown away."
@@ -95,7 +94,7 @@
                   class="h-full w-full object-cover" />
               </div>
               <figcaption class="mt-4 text-center">
-                <div class="font-semibold text-pink-800">Brianna F.K.</div>
+                <div class="font-semibold text-gray-800">Brianna F.K.</div>
                 <blockquote class="mt-2 min-h-[3.5rem] text-sm text-slate-700 sm:min-h-[3rem]">
                   "The quality is INSANE. The glitter was perfect, boning and
                   structure were top tier in the corset."
@@ -111,7 +110,7 @@
                   class="h-full w-full object-cover" />
               </div>
               <figcaption class="mt-4 text-center">
-                <div class="font-semibold text-pink-800">Brittany F.</div>
+                <div class="font-semibold text-gray-800">Brittany F.</div>
                 <blockquote class="mt-2 min-h-[3.5rem] text-sm text-slate-700 sm:min-h-[3rem]">
                   "I just wanna say a big thank you to everyone who made our
                   big day so incredible."
@@ -127,7 +126,7 @@
                   class="h-full w-full object-cover" />
               </div>
               <figcaption class="mt-4 text-center">
-                <div class="font-semibold text-pink-800">Camille R.</div>
+                <div class="font-semibold text-gray-800">Camille R.</div>
                 <blockquote class="mt-2 min-h-[3.5rem] text-sm text-slate-700 sm:min-h-[3rem]">
                   "The staff was incredible and the dress was perfect."
                 </blockquote>
@@ -142,7 +141,7 @@
                   class="h-full w-full object-cover" />
               </div>
               <figcaption class="mt-4 text-center">
-                <div class="font-semibold text-pink-800">Samantha P.</div>
+                <div class="font-semibold text-gray-800">Samantha P.</div>
                 <blockquote class="mt-2 min-h-[3.5rem] text-sm text-slate-700 sm:min-h-[3rem]">
                   "Absolutely beautiful gown and top notch service."
                 </blockquote>
@@ -162,10 +161,10 @@
           <!-- Left: text panel -->
           <div class="flex items-center justify-center md:justify-start">
             <div class="mx-auto max-w-xl text-center md:mx-0 md:text-left">
-              <h2 class="font-Tinos mt-2 text-4xl text-slate-900 sm:text-5xl">
+              <h2 class="font-Tinos mt-2 text-4xl text-gray-900 sm:text-5xl">
                 OUR STORY
               </h2>
-              <p class="mt-6 text-base leading-7 text-slate-800">
+              <p class="mt-6 text-base leading-7 text-black">
                 Promise was founded to bring beautifully crafted wedding
                 attire to couples who want timeless elegance with modern
                 comfort. We blend artisanal techniques with carefully chosen
@@ -203,8 +202,8 @@
           <div class="flex justify-center md:col-span-4 md:justify-start">
             <div class="border border-slate-300 bg-white p-2">
               <div class="border border-slate-300">
-                <img src="../images/our-process.jpg" alt="Detailed bodice of a wedding gown on a mannequin" loading="lazy"
-                  decoding="async" class="h-auto w-full object-cover" />
+                <img src="../images/our-process.jpg" alt="Detailed bodice of a wedding gown on a mannequin"
+                  loading="lazy" decoding="async" class="h-auto w-full object-cover" />
               </div>
             </div>
           </div>
