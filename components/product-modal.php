@@ -7,7 +7,7 @@
   </div>
 
   <!-- header -->
-  <div class="flex items-start justify-between gap-4 border-b border-pink-100 px-5 py-4">
+  <div class="flex items-start justify-between gap-4 border-b border-pink-300 px-5 py-4">
     <div>
       <h2 id="pm-title" class="font-RobotoCondensed text-2xl font-semibold text-pink-800">Product Title</h2>
       <div id="pm-price" class="mt-1 text-pink-700 font-semibold">$0.00</div>

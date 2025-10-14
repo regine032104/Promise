@@ -8,17 +8,17 @@
   <link rel="stylesheet" href="../dist/styles.css" />
 </head>
 
-<body class="flex min-h-screen flex-col bg-pink-100">
+<body class="flex min-h-screen flex-col bg-white">
   <!-- NAVBAR -->
   <?php include('../components/navbar.php'); ?>
 
   <!-- HERO -->
-  <header class="relative overflow-hidden bg-gradient-to-b from-pink-50 via-pink-100 to-pink-200 py-20 text-center">
+  <header class="relative overflow-hidden bg-gradient-to-b from-pink-50 via-pink-200 to-pink-200 py-20 text-center">
     <div class="relative z-10 mx-auto max-w-4xl px-4 sm:max-w-5xl">
-      <h1 class="font-Tinos animate-glow text-4xl text-pink-800 sm:text-5xl md:text-6xl lg:text-7xl">
+      <h1 class="font-Tinos  text-4xl text-gray-900 sm:text-5xl md:text-6xl lg:text-7xl">
         About <span class="text-pink-600">Promise</span>
       </h1>
-      <p class="font-unna-bold mt-4 text-base text-pink-50/80 sm:text-lg md:text-2xl">
+      <p class="font-unna mt-4 text-base text-white  sm:text-lg md:text-2xl">
         Where timeless design, thoughtful craftsmanship, and personalized
         service come together for your most cherished moments.
       </p>
@@ -29,38 +29,38 @@
     <!-- Contact US -->
     <section class="mb-12 grid grid-cols-1 gap-6 rounded-lg bg-white p-4 sm:p-6 lg:grid-cols-2">
       <div>
-        <h3 class="mb-2 text-lg font-semibold text-pink-800 sm:text-xl">
+        <h3 class="mb-2 text-lg font-semibold text-gray-900 sm:text-xl">
           Contact Us
         </h3>
-        <p class="mb-4 text-sm text-pink-700/80 sm:text-base">
+        <p class="mb-4 text-sm text-purple-700 sm:text-base">
           Have questions or want to schedule a fitting? Send us a message and
           we'll get back to you within 48 hours.
         </p>
         <form id="contact-form" class="space-y-4" novalidate>
           <div>
-            <label for="contact-name" class="mb-1 block text-sm text-pink-700">Name <span
+            <label for="contact-name" class="mb-1 block text-sm text-purple-800">Name <span
                 class="text-red-500">*</span></label>
             <input id="contact-name" name="name" autocomplete="name"
-              class="w-full rounded-md border border-pink-100 bg-pink-50 px-3 py-2 text-pink-900 focus:border-pink-400 focus:ring-1 focus:ring-pink-300" />
+              class="w-full rounded-md border border-pink-200 bg-white px-3 py-2 text-pink-900 focus:border-pink-400 focus:ring-1 focus:ring-pink-300" />
             <div class="contact-error mt-1 hidden text-xs text-red-600" data-error-for="contact-name"></div>
           </div>
           <div>
-            <label for="contact-email" class="mb-1 block text-sm text-pink-700">Email <span
+            <label for="contact-email" class="mb-1 block text-sm text-purple-800">Email <span
                 class="text-red-500">*</span></label>
             <input id="contact-email" name="email" autocomplete="email"
-              class="w-full rounded-md border border-pink-100 bg-pink-50 px-3 py-2 text-pink-900 focus:border-pink-400 focus:ring-1 focus:ring-pink-300" />
+              class="w-full rounded-md border border-pink-200 bg-white px-3 py-2 text-pink-900 focus:border-pink-400 focus:ring-1 focus:ring-pink-300" />
             <div class="contact-error mt-1 hidden text-xs text-red-600" data-error-for="contact-email"></div>
           </div>
           <div>
-            <label for="contact-subject" class="mb-1 block text-sm text-pink-700">Subject</label>
+            <label for="contact-subject" class="mb-1 block text-sm text-purple-800">Subject</label>
             <input id="contact-subject" name="subject"
-              class="w-full rounded-md border border-pink-100 bg-pink-50 px-3 py-2 text-pink-900 focus:border-pink-400 focus:ring-1 focus:ring-pink-300" />
+              class="w-full rounded-md border border-pink-200 bg-white px-3 py-2 text-pink-900 focus:border-pink-400 focus:ring-1 focus:ring-pink-300" />
           </div>
           <div>
-            <label for="contact-message" class="mb-1 block text-sm text-pink-700">Message <span
+            <label for="contact-message" class="mb-1 block text-sm text-purple-800">Message <span
                 class="text-red-500">*</span></label>
             <textarea id="contact-message" name="message"
-              class="h-32 w-full resize-none rounded-md border border-pink-100 bg-pink-50 px-3 py-2 text-pink-900 focus:border-pink-400 focus:ring-1 focus:ring-pink-300"></textarea>
+              class="h-32 w-full resize-none rounded-md border border-pink-200 bg-white px-3 py-2 text-pink-900 focus:border-pink-400 focus:ring-1 focus:ring-pink-300"></textarea>
             <div class="contact-error mt-1 hidden text-xs text-red-600" data-error-for="contact-message"></div>
           </div>
           <button type="submit"
@@ -71,29 +71,29 @@
       </div>
 
       <div>
-        <h3 class="mb-2 text-lg font-semibold text-pink-800 sm:text-xl">
+        <h3 class="mb-2 text-lg font-semibold text-gray-900 sm:text-xl">
           Visit or write to us
         </h3>
-        <div class="mb-4 text-sm text-pink-700/80 sm:text-base">
+        <div class="mb-4 text-sm text-purple-700 sm:text-base">
           <p>Promise Atelier</p>
           <p>0321 December Avenue</p>
           <p>Philippines</p>
           <p>
             Email:
-            <a href="mailto:regine&gervs@email.com" class="text-pink-600 underline">regine&gervs@email.com</a>
+            <a href="mailto:regine&gervs@email.com" class="text-purple-700 underline">promise@email.com</a>
           </p>
           <p>
             Phone:
-            <a href="tel:+639121234567" class="text-pink-600 underline">+63 912 123 4567</a>
+            <a href="tel:+639121234567" class="text-purple-700 underline">+63 912 123 4567</a>
           </p>
         </div>
 
         <div class="mt-2">
-          <div class="mb-3 font-medium text-pink-700">Follow us:</div>
+          <div class="mb-3 font-medium text-purple-800">Follow us:</div>
           <div class="flex items-center gap-4">
             <!-- Facebook -->
             <a href="#" target="_blank" rel="noopener"
-              class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-pink-200 bg-white text-pink-600 shadow transition-transform duration-200 hover:scale-110 hover:shadow-[0_0_20px_rgba(236,72,153,0.12)]"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-pink-200 bg-white text-blue-600 shadow transition-transform duration-200 hover:scale-110 hover:shadow-[0_0_20px_rgba(236,72,153,0.12)]"
               aria-label="Facebook">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
                 <path
@@ -111,7 +111,7 @@
             </a>
             <!-- GitHub -->
             <a href="#" target="_blank" rel="noopener"
-              class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-pink-200 bg-white text-pink-600 shadow transition-transform duration-200 hover:scale-110 hover:shadow-[0_0_20px_rgba(236,72,153,0.12)]"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-pink-200 bg-white text-black-600 shadow transition-transform duration-200 hover:scale-110 hover:shadow-[0_0_20px_rgba(236,72,153,0.12)]"
               aria-label="GitHub">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
                 <path
@@ -122,7 +122,7 @@
 
           <div class="mt-4 rounded-md border border-pink-200 bg-white p-3">
             <img src="../images/maps.png" alt="Map"
-              class="h-40 w-full rounded-md border border-pink-100 object-cover sm:h-48" />
+              class="h-40 w-full rounded-md border border-pink-200 object-cover sm:h-48" />
             <div class="mt-2 text-center text-sm text-pink-600">
               Click image to open full map
             </div>
