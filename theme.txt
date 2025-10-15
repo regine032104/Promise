@@ -1,0 +1,118 @@
+Here’s a clean, ready-to-save version you can copy directly into a `.txt` file — it’s formatted as **step-by-step design instructions** for your **Wedding-Ecommerce Website (Pastel Theme)**:
+
+---
+
+**WEDDING E-COMMERCE WEBSITE DESIGN INSTRUCTIONS (PASTEL THEME)**
+
+---
+
+### 1. COLOR SYSTEM
+
+Use the following color palette across the website:
+
+* Primary Accent (Buttons, Links): **Blush Pink** — HEX `#F7C6C7`
+* Secondary Accent (Headers, Hover States): **Dusty Rose** — HEX `#D8A7A0`
+* Background Base: **Pastel White (Cream Beige)** — HEX `#D3B299`
+* Text / Neutral Base: **Taupe Gray** — HEX `#A5948B`
+* Light Background: **Soft Warm Gray** — HEX `#DCD6D0`
+
+---
+
+### 2. THEME FEEL
+
+* Mood: Romantic, Soft, Clean, and Premium
+* Typography Style: Elegant serif + modern sans-serif combination
+* Recommended Fonts:
+
+  * Headings: *Playfair Display*, *Cormorant Garamond*, or *Libre Baskerville*
+  * Body Text: *Lato*, *Nunito*, or *Montserrat*
+* Use thin font weights, wide spacing, and rounded corners for a soft aesthetic.
+
+---
+
+### 3. LAYOUT STRUCTURE
+
+#### Homepage
+
+* Hero Section:
+  Background color — Soft Warm Gray
+  Add a romantic product/couple image and overlay text in Dusty Rose.
+  Example text: “Celebrate Love with Elegant Pieces”
+
+* Featured Products Section:
+  Use cards with Pastel White backgrounds and Taupe Gray text.
+  Buttons in Blush Pink with white text.
+
+* Testimonials:
+  Use Soft Warm Gray background and serif fonts for quotes.
+
+* Footer:
+  Background — Taupe Gray
+  Text — Pastel White or Blush Pink
+
+#### Product Pages
+
+* Background: White or Soft Warm Gray
+* Product Container: Pastel White with subtle shadow
+* Button: Blush Pink (hover color: Dusty Rose)
+* Font: Product name in Playfair Display, price in Taupe Gray
+
+---
+
+### 4. DECORATIVE TOUCHES
+
+* Use soft shadows (low opacity).
+* Add subtle gradients like:
+  `linear-gradient(135deg, #F7C6C7, #D8A7A0)`
+* Use minimal icons in outline style (hearts, rings, leaves).
+* Maintain generous white space around all sections.
+
+---
+
+### 5. BASIC CSS VARIABLES (REFERENCE)
+
+Use the following color system in your CSS:
+
+```
+:root {
+  --blush-pink: #F7C6C7;
+  --dusty-rose: #D8A7A0;
+  --pastel-white: #D3B299;
+  --taupe-gray: #A5948B;
+  --soft-warm-gray: #DCD6D0;
+}
+
+body {
+  background-color: var(--soft-warm-gray);
+  color: var(--taupe-gray);
+  font-family: 'Lato', sans-serif;
+}
+
+button {
+  background-color: var(--blush-pink);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: var(--dusty-rose);
+}
+```
+
+---
+
+### 6. FINAL DESIGN NOTES
+
+* Keep the design **minimal, romantic, and user-friendly**.
+* Use consistent **spacing and font hierarchy**.
+* Prioritize **product imagery and elegance** over visual clutter.
+* Ensure all text contrasts clearly with backgrounds for readability.
+
+---
+
+

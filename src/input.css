@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+/* Custom color palette for Promise Shop */
+@layer theme {
+  :root {
+    --color-candy-cream: #fef7f0;
+    --color-candy-pink: #f9c0af;
+    --color-candy-pink-light: #fce4d9;
+    --color-candy-pink-dark: #e8a085;
+    --color-candy-lavender: #d4b5d8;
+    --color-candy-lavender-light: #e8d5eb;
+    --color-candy-peach: #f9c0af;
+    --color-candy-peach-dark: #e8a085;
+    --color-candy-yellow: #f9d71c;
+  }
+}
+
+/* Custom font families */
+@layer base {
+  @font-face {
+    font-family: 'Tinos';
+    src: url('https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  }
+  
+  @font-face {
+    font-family: 'Unna';
+    src: url('https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  }
+  
+  @font-face {
+    font-family: 'GreatVibes';
+    src: url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .font-Tinos {
+    font-family: 'Tinos', serif;
+  }
+  
+  .font-Unna-regular {
+    font-family: 'Unna', serif;
+    font-weight: 400;
+  }
+  
+  .font-Unna-bold {
+    font-family: 'Unna', serif;
+    font-weight: 700;
+  }
+  
+  .font-GreatVibes {
+    font-family: 'Great Vibes', cursive;
+  }
+  
+  .bg-candy-cream {
+    background-color: var(--color-candy-cream);
+  }
+  
+  .bg-candy-pink {
+    background-color: var(--color-candy-pink);
+  }
+  
+  .bg-candy-pink-light {
+    background-color: var(--color-candy-pink-light);
+  }
+  
+  .bg-candy-lavender {
+    background-color: var(--color-candy-lavender);
+  }
+  
+  .bg-candy-lavender-light {
+    background-color: var(--color-candy-lavender-light);
+  }
+  
+  .text-candy-peach {
+    color: var(--color-candy-peach);
+  }
+  
+  .text-candy-peach-dark {
+    color: var(--color-candy-peach-dark);
+  }
+  
+  .border-candy-lavender {
+    border-color: var(--color-candy-lavender);
+  }
+  
+  .border-candy-lavender-light {
+    border-color: var(--color-candy-lavender-light);
+  }
+  
+  .hover\:bg-candy-lavender-light:hover {
+    background-color: var(--color-candy-lavender-light);
+  }
+  
+  .hover\:text-candy-peach:hover {
+    color: var(--color-candy-peach);
+  }
+  
+  .hover\:text-candy-peach-dark:hover {
+    color: var(--color-candy-peach-dark);
+  }
+  
+  .hover\:bg-candy-cream:hover {
+    background-color: var(--color-candy-cream);
+  }
+  
+  .from-candy-peach {
+    --tw-gradient-from: var(--color-candy-peach);
+  }
+  
+  .to-candy-pink {
+    --tw-gradient-to: var(--color-candy-pink);
+  }
+  
+  .hover\:from-candy-peach-dark:hover {
+    --tw-gradient-from: var(--color-candy-peach-dark);
+  }
+  
+  .hover\:to-candy-pink-dark:hover {
+    --tw-gradient-to: var(--color-candy-pink-dark);
+  }
+  
+  .focus\:ring-candy-peach:focus {
+    --tw-ring-color: var(--color-candy-peach);
+  }
+  
+  .focus\:ring-candy-yellow:focus {
+    --tw-ring-color: var(--color-candy-yellow);
+  }
+  
+  .border-candy-peach {
+    border-color: var(--color-candy-peach);
+  }
+  
+  .hover\:bg-candy-peach:hover {
+    background-color: var(--color-candy-peach);
+  }
+  
+  .hover\:text-white:hover {
+    color: white;
+  }
+  
+  .focus\:ring-offset-candy-cream:focus {
+    --tw-ring-offset-color: var(--color-candy-cream);
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px rgba(249, 192, 175, 0.5);
+    }
+    to {
+      text-shadow: 0 0 20px rgba(249, 192, 175, 0.8);
+    }
+  }
+}

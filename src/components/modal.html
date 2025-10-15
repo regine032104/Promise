@@ -1,0 +1,275 @@
+<!-- Theme CSS -->
+<link rel="stylesheet" href="../theme.css">
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+<!-- Login Modal -->
+<div id="login-modal" class="fixed inset-0 z-50 hidden" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="absolute inset-0 bg-opacity-50 backdrop-blur-sm" onclick="closeModal('login-modal')"></div>
+  <div class="relative w-full h-full flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-2xl shadow-2xl overflow-hidden bg-white">
+       <!-- Header -->
+       <div class="bg-gradient-primary px-8 py-6">
+         <div class="flex items-center justify-between">
+           <div>
+             <h2 class="text-2xl font-semibold text-white">Sign in to your account</h2>
+             <p class="text-white text-opacity-80 text-sm mt-1">Welcome back! Please enter your credentials</p>
+           </div>
+           <button class="text-white text-opacity-80 hover:text-white text-2xl font-light transition-colors" aria-label="Close login" onclick="closeModal('login-modal')">×</button>
+         </div>
+       </div>
+
+      <!-- Form -->
+      <div class="px-8 py-6">
+        <form id="login-form" action="../backend/login_process.php" method="POST" class="space-y-6">
+          <div id="login-message" class="hidden"></div>
+          <div>
+            <label class="form-label" for="login-email">Email Address</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-neutral">
+              </span>
+              <input id="login-email" name="email" type="email" class="form-input pl-10" placeholder="Enter your email" required>
+            </div>
+          </div>
+          
+          <div>
+            <label class="form-label" for="login-password">Password</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-neutral">
+              </span>
+              <input id="login-password" name="password" type="password" class="form-input pl-10" placeholder="Enter your password" required>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <label class="inline-flex items-center text-sm text-neutral">
+              <input type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-neutral rounded">
+              <span class="ml-2">Remember me</span>
+            </label>
+            <a href="#" class="text-sm text-primary hover:text-secondary font-medium">Forgot password?</a>
+          </div>
+          
+          <button type="submit" class="btn-primary w-full py-3">
+            Sign In
+          </button>
+        </form>
+        
+        <!-- Divider -->
+        <div class="mt-6 mb-6">
+          <div class="relative">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-light"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+              <span class="px-2 bg-white text-neutral">Don't have an account?</span>
+            </div>
+          </div>
+        </div>
+        
+         <!-- Register Link -->
+         <button onclick="switchToRegister()" class="btn-secondary w-full">
+           Create New Account
+         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Register Modal - FIXED VERSION -->
+<div id="register-modal" class="fixed inset-0 z-50 hidden" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="absolute inset-0  backdrop-blur-sm" onclick="closeModal('register-modal')"></div>
+  <div class="relative w-full h-full flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-3xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col">
+      <!-- Header -->
+      <div class="bg-gradient-primary px-6 py-4 flex-shrink-0">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-white">Create Account</h2>
+            <p class="text-white text-opacity-80 text-xs mt-1">Join us for exclusive bridal services</p>
+          </div>
+          <button class="text-white text-opacity-80 hover:text-white text-xl font-light transition-colors" aria-label="Close register" onclick="closeModal('register-modal')">×</button>
+        </div>
+      </div>
+
+      <!-- Scrollable Form Content -->
+      <div class="flex-1 overflow-y-auto px-8 py-6">
+        <form id="register-form" action="../backend/reg_process.php" method="POST" class="space-y-6">
+          <div id="register-message" class="hidden"></div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="form-label" for="reg-first-name">First Name</label>
+              <input id="reg-first-name" name="first_name" type="text" class="form-input" placeholder="Enter first name" required>
+            </div>
+            <div>
+              <label class="form-label" for="reg-last-name">Last Name</label>
+              <input id="reg-last-name" name="last_name" type="text" class="form-input" placeholder="Enter last name" required>
+            </div>
+          </div>
+          
+           <div>
+             <label class="form-label" for="reg-email">Email Address</label>
+             <div class="relative">
+               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+               </span>
+               <input id="reg-email" name="email" type="email" class="form-input pl-10" placeholder="Enter your email" required>
+             </div>
+           </div>
+           
+           <div>
+             <label class="form-label" for="reg-contact">Phone Number</label>
+             <div class="relative">
+               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+
+               </span>
+               <input id="reg-contact" name="contact_number" type="tel" class="form-input pl-10" placeholder="Enter phone number" required>
+             </div>
+           </div>
+           
+           <div>
+             <label class="form-label" for="reg-password">Password</label>
+             <div class="relative">
+               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+
+               </span>
+               <input id="reg-password" name="password" type="password" class="form-input pl-10" placeholder="Create a password" required>
+             </div>
+           </div>
+           
+           <div>
+             <label class="form-label" for="reg-confirm-password">Confirm Password</label>
+             <div class="relative">
+               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+               </span>
+               <input id="reg-confirm-password" name="confirm_password" type="password" class="form-input pl-10" placeholder="Confirm your password" required>
+             </div>
+           </div>
+          
+          <div class="flex items-start">
+            <input id="agree-terms" name="agree-terms" type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-neutral rounded mt-1">
+            <label for="agree-terms" class="ml-3 text-sm text-neutral">
+              I agree to the <a href="#" class="text-primary hover:text-secondary font-medium">Terms of Service</a> and <a href="#" class="text-primary hover:text-secondary font-medium">Privacy Policy</a>
+            </label>
+          </div>
+          
+        </form>
+      </div>
+      
+      <!-- Fixed Button Area - Always Visible -->
+      <div class="flex-shrink-0 border-t border-gray-200 px-8 py-4 bg-white">
+        <div class="flex space-x-4">
+          <button type="button" class="btn-secondary flex-1" onclick="closeModal('register-modal')">
+            Cancel
+          </button>
+          <button type="submit" form="register-form" class="btn-primary flex-1">
+            Create Account
+          </button>
+        </div>
+        
+        <div class="text-center mt-4">
+          <p class="text-sm text-neutral">Already have an account? 
+            <a href="#" onclick="switchToLogin()" class="text-primary hover:text-secondary font-medium">Sign in here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// Modal helpers
+function openModal(id) {
+  var el = document.getElementById(id); 
+  if (el) el.classList.remove('hidden');
+  
+  // Reset form validation when opening modal
+  if (id === 'register-modal' && typeof resetRegisterFormValidation === 'function') {
+    resetRegisterFormValidation();
+  }
+}
+
+function closeModal(id) {
+  var el = document.getElementById(id); 
+  if (el) el.classList.add('hidden');
+}
+
+// Switch from login to register modal
+function switchToRegister() {
+  closeModal('login-modal');
+  openModal('register-modal');
+}
+
+// Switch from register to login modal
+function switchToLogin() {
+  closeModal('register-modal');
+  openModal('login-modal');
+}
+
+// Event listeners for navbar buttons
+document.addEventListener('DOMContentLoaded', function() {
+  const openLoginBtn = document.getElementById('open-login');
+  const openRegisterBtn = document.getElementById('open-register');
+
+  if (openLoginBtn) {
+    openLoginBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openModal('login-modal');
+    });
+  }
+
+  if (openRegisterBtn) {
+    openRegisterBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openModal('register-modal');
+    });
+  }
+});
+
+// Logout function
+function logout() {
+    // Send logout request to server
+    $.ajax({
+        url: '../backend/logout.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                // Reset navbar to guest state
+                resetNavbarToGuest();
+                // Show success message
+                alert('Logged out successfully!');
+            }
+        },
+        error: function() {
+            // Even if server fails, reset the UI
+            resetNavbarToGuest();
+        }
+    });
+}
+
+// Function to reset navbar to guest state
+function resetNavbarToGuest() {
+    // Show guest menu
+    const guestMenu = document.getElementById('guest-menu');
+    if (guestMenu) guestMenu.style.display = 'block';
+    
+    // Hide user menu
+    const userMenu = document.getElementById('user-menu');
+    if (userMenu) userMenu.classList.add('hidden');
+    
+    // Reset account text
+    const accountText = document.getElementById('account-text');
+    if (accountText) accountText.textContent = 'My Account';
+}
+
+// Make logout function globally available
+window.logout = logout;
+
+// Include register validation
+</script>
+
+<!-- Register Validation Script -->
+<script src="../validation/register-validation.js"></script>
+<script src="../validation/login-validation.js"></script>

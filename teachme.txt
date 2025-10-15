@@ -1,0 +1,821 @@
+# LOGIN SYSTEM IMPLEMENTATION GUIDE
+# How to create a working login system for your Promise Shop
+
+## OVERVIEW
+This guide will help you implement a complete login system that works with your existing registration system.
+
+## STEP 1: CREATE LOGIN PROCESSING FILE
+Create a new file: `src/backend/login_process.php`
+
+```php
+<?php
+require 'connections.php';
+
+// Set content type to JSON for AJAX responses
+header('Content-Type: application/json');
+
+// Check if form was submitted
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+    exit;
+}
+
+// Validate required fields
+if (empty($_POST['email']) || empty($_POST['password'])) {
+    echo json_encode(['success' => false, 'message' => 'Email and password are required!']);
+    exit;
+}
+
+$email = trim($_POST['email']);
+$password = $_POST['password'];
+
+// Validate email format
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode(['success' => false, 'message' => 'Invalid email format!']);
+    exit;
+}
+
+try {
+    // Check if user exists
+    $stmt = $pdo->prepare("SELECT customer_id, first_name, last_name, email, password_hash FROM customers WHERE email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch();
+    
+    if (!$user) {
+        echo json_encode(['success' => false, 'message' => 'Invalid email or password!']);
+        exit;
+    }
+    
+    // Verify password
+    if (!password_verify($password, $user['password_hash'])) {
+        echo json_encode(['success' => false, 'message' => 'Invalid email or password!']);
+        exit;
+    }
+    
+    // Start session
+    session_start();
+    $_SESSION['user_id'] = $user['customer_id'];
+    $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
+    $_SESSION['user_email'] = $user['email'];
+    $_SESSION['logged_in'] = true;
+    
+    echo json_encode([
+        'success' => true, 
+        'message' => 'Login successful! Welcome back, ' . $user['first_name'] . '!',
+        'user' => [
+            'name' => $user['first_name'] . ' ' . $user['last_name'],
+            'email' => $user['email']
+        ]
+    ]);
+    
+} catch (PDOException $e) {
+    echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
+}
+?>
+```
+
+## STEP 2: UPDATE MODAL.HTML
+Add this to your modal.html file (around line 98, after the register form):
+
+```html
+<!-- Update the login form action -->
+<form id="login-form" action="../backend/login_process.php" method="POST" class="space-y-6">
+```
+
+## STEP 3: CREATE LOGIN VALIDATION SCRIPT
+Create a new file: `src/validation/login-validation.js`
+
+```javascript
+// Login Modal Validation with jQuery
+$(document).ready(function() {
+    
+    // Login form validation
+    $("#login-form").validate({
+        rules: {
+            "email": {
+                required: true,
+                email: true
+            },
+            "password": {
+                required: true,
+                minlength: 1
+            }
+        },
+        messages: {
+            "email": {
+                required: "Please enter your email address",
+                email: "Please enter a valid email address"
+            },
+            "password": {
+                required: "Please enter your password"
+            }
+        },
+        errorClass: "error",
+        validClass: "valid",
+        errorPlacement: function(error, element) {
+            error.insertAfter(element);
+        },
+        submitHandler: function(form) {
+            // Form is valid, submit via AJAX
+            submitLoginForm(form);
+            return false; // Prevent default form submission
+        }
+    });
+    
+    // AJAX form submission function
+    function submitLoginForm(form) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        
+        // Show loading state
+        submitBtn.textContent = 'Signing In...';
+        submitBtn.disabled = true;
+        
+        // Get form data
+        const formData = new FormData(form);
+        
+        // Submit via AJAX
+        $.ajax({
+            url: form.action,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    // Show success message
+                    showLoginMessage('login-message', response.message, 'success');
+                    // Update navbar to show logged in state
+                    updateNavbarForLoggedInUser(response.user);
+                    // Close modal after 2 seconds
+                    setTimeout(function() {
+                        closeModal('login-modal');
+                    }, 2000);
+                } else {
+                    // Show error message
+                    showLoginMessage('login-message', response.message, 'error');
+                }
+            },
+            error: function(xhr, status, error) {
+                // Show error message
+                showLoginMessage('login-message', 'Login failed. Please try again.', 'error');
+            },
+            complete: function() {
+                // Reset button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+    
+    // Function to show login messages
+    function showLoginMessage(elementId, message, type) {
+        const messageElement = document.getElementById(elementId);
+        if (messageElement) {
+            messageElement.textContent = message;
+            messageElement.className = type === 'success' ? 'text-green-600 bg-green-100 p-3 rounded mb-4' : 'text-red-600 bg-red-100 p-3 rounded mb-4';
+            messageElement.classList.remove('hidden');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(function() {
+                messageElement.classList.add('hidden');
+            }, 5000);
+        }
+    }
+    
+    // Function to update navbar for logged in user
+    function updateNavbarForLoggedInUser(user) {
+        // Hide guest menu
+        const guestMenu = document.getElementById('guest-menu');
+        if (guestMenu) guestMenu.style.display = 'none';
+        
+        // Show user menu
+        const userMenu = document.getElementById('user-menu');
+        if (userMenu) userMenu.classList.remove('hidden');
+        
+        // Update user info
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
+        if (userName) userName.textContent = 'Welcome, ' + user.name;
+        if (userEmail) userEmail.textContent = user.email;
+        
+        // Update account text
+        const accountText = document.getElementById('account-text');
+        if (accountText) accountText.textContent = user.name;
+    }
+    
+    // Make functions globally available
+    window.submitLoginForm = submitLoginForm;
+    window.showLoginMessage = showLoginMessage;
+    window.updateNavbarForLoggedInUser = updateNavbarForLoggedInUser;
+});
+```
+
+## STEP 4: UPDATE MODAL.HTML TO INCLUDE LOGIN VALIDATION
+Add this line to your modal.html file (after the register validation script):
+
+```html
+<!-- Login Validation Script -->
+<script src="../validation/login-validation.js"></script>
+```
+
+## STEP 5: CREATE LOGOUT FUNCTIONALITY
+Add this to your modal.html file (in the script section):
+
+```javascript
+// Logout function
+function logout() {
+    // Send logout request to server
+    $.ajax({
+        url: '../backend/logout.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                // Reset navbar to guest state
+                resetNavbarToGuest();
+                // Show success message
+                alert('Logged out successfully!');
+            }
+        },
+        error: function() {
+            // Even if server fails, reset the UI
+            resetNavbarToGuest();
+        }
+    });
+}
+
+// Function to reset navbar to guest state
+function resetNavbarToGuest() {
+    // Show guest menu
+    const guestMenu = document.getElementById('guest-menu');
+    if (guestMenu) guestMenu.style.display = 'block';
+    
+    // Hide user menu
+    const userMenu = document.getElementById('user-menu');
+    if (userMenu) userMenu.classList.add('hidden');
+    
+    // Reset account text
+    const accountText = document.getElementById('account-text');
+    if (accountText) accountText.textContent = 'My Account';
+}
+
+// Make logout function globally available
+window.logout = logout;
+```
+
+## STEP 6: CREATE LOGOUT PROCESSING FILE
+Create a new file: `src/backend/logout.php`
+
+```php
+<?php
+session_start();
+
+// Destroy session
+session_destroy();
+
+// Return JSON response
+header('Content-Type: application/json');
+echo json_encode(['success' => true, 'message' => 'Logged out successfully']);
+?>
+```
+
+## STEP 7: UPDATE NAVBAR.HTML
+Make sure your navbar.html has the logout button properly connected:
+
+```html
+<a href="#" id="logout-btn" onclick="logout()" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+    Logout
+</a>
+```
+
+## STEP 8: CREATE SESSION CHECK FILE (OPTIONAL)
+Create a new file: `src/backend/check_session.php` to check if user is logged in:
+
+```php
+<?php
+session_start();
+
+header('Content-Type: application/json');
+
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    echo json_encode([
+        'logged_in' => true,
+        'user' => [
+            'name' => $_SESSION['user_name'],
+            'email' => $_SESSION['user_email']
+        ]
+    ]);
+} else {
+    echo json_encode(['logged_in' => false]);
+}
+?>
+```
+
+## TESTING INSTRUCTIONS
+
+### 1. Test Registration First
+- Go to your website
+- Click "My Account" → "Register"
+- Create a new account
+- Verify it works
+
+### 2. Test Login
+- Click "My Account" → "Login"
+- Use the email and password you just registered
+- Should see success message and navbar update
+
+### 3. Test Logout
+- Click "My Account" → "Logout"
+- Should see navbar reset to guest state
+
+## TROUBLESHOOTING
+
+### Common Issues:
+1. **"Invalid email or password"** - Check if user exists in database
+2. **AJAX errors** - Check browser console for JavaScript errors
+3. **Session not working** - Make sure PHP sessions are enabled
+4. **File not found** - Check file paths are correct
+
+### Debug Steps:
+1. Check browser console for errors
+2. Test database connection with test_connection.php
+3. Verify all files are created in correct locations
+4. Check PHP error logs
+
+## FILES TO CREATE:
+1. src/backend/login_process.php
+2. src/validation/login-validation.js
+3. src/backend/logout.php
+4. src/backend/check_session.php (optional)
+
+## FILES TO UPDATE:
+1. src/components/modal.html (add login validation script)
+2. src/components/navbar.html (ensure logout button works)
+
+That's it! Your login system should now work perfectly with your registration system.
+
+---
+
+# USER-SPECIFIC CONTENT & PAGE BEHAVIOR GUIDE
+# How to make pages show different content when user is logged in
+
+## OVERVIEW
+After implementing login, you need to make your pages show different content based on whether a user is logged in or not. This includes:
+- Different navigation options
+- Personalized content
+- Protected pages (only for logged-in users)
+- User-specific data display
+
+## STEP 1: CREATE SESSION CHECK SYSTEM
+First, create a session check file that all pages can use.
+
+Create: `src/backend/session_check.php`
+
+```php
+<?php
+session_start();
+
+// Function to check if user is logged in
+function isLoggedIn() {
+    return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+}
+
+// Function to get current user data
+function getCurrentUser() {
+    if (isLoggedIn()) {
+        return [
+            'id' => $_SESSION['user_id'],
+            'name' => $_SESSION['user_name'],
+            'email' => $_SESSION['user_email']
+        ];
+    }
+    return null;
+}
+
+// Function to require login (redirect if not logged in)
+function requireLogin($redirectTo = '../pages/home.php') {
+    if (!isLoggedIn()) {
+        header('Location: ' . $redirectTo);
+        exit;
+    }
+}
+
+// Function to require guest (redirect if logged in)
+function requireGuest($redirectTo = '../pages/home.php') {
+    if (isLoggedIn()) {
+        header('Location: ' . $redirectTo);
+        exit;
+    }
+}
+?>
+```
+
+## STEP 2: UPDATE ALL PAGES TO CHECK LOGIN STATUS
+Add this to the top of each page (after the opening PHP tag):
+
+### For pages like home.php, about.php, products.php:
+```php
+<?php
+require_once('../backend/session_check.php');
+$user = getCurrentUser();
+$isLoggedIn = isLoggedIn();
+?>
+```
+
+### For protected pages (like user dashboard, cart, orders):
+```php
+<?php
+require_once('../backend/session_check.php');
+requireLogin(); // This will redirect if not logged in
+$user = getCurrentUser();
+?>
+```
+
+## STEP 3: UPDATE NAVBAR TO SHOW USER-SPECIFIC CONTENT
+Update your navbar.html to show different content based on login status:
+
+```html
+<!-- NAVBAR -->
+<nav class="flex bg-accent shadow-soft">
+  <div class="container mx-auto flex flex-col items-center justify-between gap-4 p-4 md:flex-row md:gap-0">
+    <div class="flex w-full items-center justify-between md:w-auto">
+      <a href="/pages/home.php"
+        class="text-3xl text-dark transition-colors hover:text-secondary md:text-4xl lg:pl-16 lg:text-5xl">
+        Pro<span class="text-secondary hover:text-primary">mise</span></a>
+      <!-- mobile menu button -->
+      <button id="nav-toggle" aria-controls="nav-menu" aria-expanded="false"
+        class="inline-flex items-center justify-center rounded-md p-2 text-dark hover:bg-white/10 focus:ring-2 focus:ring-primary focus:outline-none md:hidden">
+        <span class="sr-only">Open main menu</span>
+        <!-- hamburger icon -->
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- NAV MENU -->
+    <ul id="nav-menu"
+      class="hidden flex-col items-center space-y-2 text-center text-lg text-secondary sm:text-xl md:flex md:flex-row md:space-y-0 md:space-x-8">
+      <li><a href="../pages/home.php" class="px-4 py-2 align-middle hover:text-secondary md:px-2">Home</a></li>
+      <li><a href="../pages/reservation.php" class="px-4 py-2 align-middle hover:text-secondary md:px-2">Reservation</a></li>
+      <li><a href="../pages/about.php" class="px-4 py-2 align-middle hover:text-secondary md:px-2">Contact</a></li>
+      <li class="relative group">
+        <a href="../pages/products.php" class="px-4 py-2 align-middle hover:text-secondary md:px-2 flex items-center">
+          Shop
+          <svg class="w-2 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </a>
+        
+        <!-- Shop Dropdown -->
+        <div class="absolute left-0 top-full mt-2 bg-white shadow-medium border border-light rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50" style="width: 220px;">
+          <div class="py-2">
+            <a href="../pages/collections.php" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+              Collections
+            </a>
+            <a href="../pages/dresses-robes.php" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+              Dresses/Robes
+            </a>
+            <a href="../pages/veils-accessories.php" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+              Veils and Accessories
+            </a>
+          </div>
+        </div>
+      </li>
+      <li><a href="../pages/size-guide.php" class="px-4 py-2 align-middle hover:text-secondary md:px-2">Size Guide</a></li>
+      
+      <!-- USER-SPECIFIC NAVIGATION -->
+      <?php if ($isLoggedIn): ?>
+        <!-- Logged in user menu -->
+        <li class="relative group">
+          <a href="#" class="px-4 py-2 align-middle hover:text-secondary md:px-2 flex items-center">
+            <span id="account-text"><?php echo htmlspecialchars($user['name']); ?></span>
+            <svg class="w-2 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </a>
+          
+          <!-- User Dropdown -->
+          <div class="absolute right-0 top-full mt-2 bg-white shadow-medium border border-light rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50" style="width: 200px;">
+            <div class="py-2" id="user-menu">
+              <div class="px-4 py-2 border-b border-light">
+                <p class="text-sm font-medium text-dark">Welcome, <?php echo htmlspecialchars($user['name']); ?></p>
+                <p class="text-xs text-neutral"><?php echo htmlspecialchars($user['email']); ?></p>
+              </div>
+              <a href="../pages/cart.php" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+                My Cart
+              </a>
+              <a href="../pages/orders.php" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+                My Orders
+              </a>
+              <a href="../pages/profile.php" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+                Profile Settings
+              </a>
+              <a href="#" onclick="logout()" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+                Logout
+              </a>
+            </div>
+          </div>
+        </li>
+      <?php else: ?>
+        <!-- Guest user menu -->
+        <li class="relative group">
+          <a href="#" class="px-4 py-2 align-middle hover:text-secondary md:px-2 flex items-center">
+            <span id="account-text">My Account</span>
+            <svg class="w-2 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </a>
+          
+          <!-- Guest Dropdown -->
+          <div class="absolute right-0 top-full mt-2 bg-white shadow-medium border border-light rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50" style="width: 200px;">
+            <div class="py-2" id="guest-menu">
+              <a href="#" id="open-login" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+                Login
+              </a>
+              <a href="#" id="open-register" class="block px-4 py-3 text-neutral hover:text-primary hover:bg-light transition-colors">
+                Register
+              </a>
+            </div>
+          </div>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </div>
+</nav>
+
+<!-- Include Modal (only for guests) -->
+<?php if (!$isLoggedIn): ?>
+  <?php include('modal.html'); ?>
+<?php endif; ?>
+```
+
+## STEP 4: CREATE USER-SPECIFIC PAGES
+Create pages that are only accessible to logged-in users:
+
+### Create: `src/pages/profile.php`
+```php
+<?php
+require_once('../backend/session_check.php');
+requireLogin(); // Redirect if not logged in
+$user = getCurrentUser();
+
+// Get user's full data from database
+require_once('../backend/connections.php');
+$stmt = $pdo->prepare("SELECT * FROM customers WHERE customer_id = ?");
+$stmt->execute([$user['id']]);
+$userData = $stmt->fetch();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile - Promise</title>
+  <link rel="stylesheet" href="../output.css" />
+  <link rel="stylesheet" href="../theme.css" />
+</head>
+<body class="flex min-h-screen flex-col bg-accent">
+  <!-- NAVBAR -->
+  <?php include('../components/navbar.html'); ?>
+
+  <main class="flex-grow py-16 md:py-20">
+    <div class="relative z-10 m-auto max-w-screen-xl justify-center py-2 px-4">
+      
+      <!-- Profile Header -->
+      <div class="mb-12 text-center">
+        <h1 class="text-4xl font-bold text-dark mb-4">My Profile</h1>
+        <p class="text-neutral max-w-3xl mx-auto">
+          Manage your account information and preferences
+        </p>
+      </div>
+
+      <!-- Profile Content -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Personal Information -->
+        <div class="card">
+          <h2 class="text-2xl font-semibold text-dark mb-6">Personal Information</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="form-label">Full Name</label>
+              <p class="text-neutral"><?php echo htmlspecialchars($userData['first_name'] . ' ' . $userData['last_name']); ?></p>
+            </div>
+            <div>
+              <label class="form-label">Email Address</label>
+              <p class="text-neutral"><?php echo htmlspecialchars($userData['email']); ?></p>
+            </div>
+            <div>
+              <label class="form-label">Phone Number</label>
+              <p class="text-neutral"><?php echo htmlspecialchars($userData['contact_number'] ?? 'Not provided'); ?></p>
+            </div>
+            <div>
+              <label class="form-label">Member Since</label>
+              <p class="text-neutral"><?php echo date('F j, Y', strtotime($userData['date_created'])); ?></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+          <h2 class="text-2xl font-semibold text-dark mb-6">Quick Actions</h2>
+          <div class="space-y-4">
+            <a href="orders.php" class="btn-primary w-full text-center block">
+              View My Orders
+            </a>
+            <a href="cart.php" class="btn-secondary w-full text-center block">
+              My Shopping Cart
+            </a>
+            <a href="reservation.php" class="btn-secondary w-full text-center block">
+              Book Appointment
+            </a>
+            <button onclick="logout()" class="btn-secondary w-full">
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <?php include('../components/footer.html'); ?>
+</body>
+</html>
+```
+
+### Create: `src/pages/cart.php`
+```php
+<?php
+require_once('../backend/session_check.php');
+requireLogin(); // Redirect if not logged in
+$user = getCurrentUser();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart - Promise</title>
+  <link rel="stylesheet" href="../output.css" />
+  <link rel="stylesheet" href="../theme.css" />
+</head>
+<body class="flex min-h-screen flex-col bg-accent">
+  <!-- NAVBAR -->
+  <?php include('../components/navbar.html'); ?>
+
+  <main class="flex-grow py-16 md:py-20">
+    <div class="relative z-10 m-auto max-w-screen-xl justify-center py-2 px-4">
+      
+      <!-- Cart Header -->
+      <div class="mb-12 text-center">
+        <h1 class="text-4xl font-bold text-dark mb-4">Shopping Cart</h1>
+        <p class="text-neutral max-w-3xl mx-auto">
+          Review your selected items before checkout
+        </p>
+      </div>
+
+      <!-- Cart Content -->
+      <div class="card">
+        <div class="text-center py-12">
+          <h3 class="text-xl font-semibold text-dark mb-4">Your cart is empty</h3>
+          <p class="text-neutral mb-6">Start shopping to add items to your cart</p>
+          <a href="products.php" class="btn-primary">
+            Browse Products
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <?php include('../components/footer.html'); ?>
+</body>
+</html>
+```
+
+## STEP 5: ADD USER-SPECIFIC CONTENT TO EXISTING PAGES
+Update your existing pages to show different content based on login status:
+
+### Example: Update home.php
+Add this after the hero section:
+
+```php
+<!-- Personalized Welcome Section (only for logged-in users) -->
+<?php if ($isLoggedIn): ?>
+<div class="py-16 bg-gradient-background">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold text-dark mb-4">
+      Welcome back, <?php echo htmlspecialchars($user['name']); ?>!
+    </h2>
+    <p class="text-neutral mb-8 max-w-2xl mx-auto">
+      Continue your bridal journey with personalized recommendations and exclusive offers.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="products.php" class="btn-primary">
+        Continue Shopping
+      </a>
+      <a href="profile.php" class="btn-secondary">
+        View Profile
+      </a>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
+```
+
+## STEP 6: CREATE LOGIN REDIRECT SYSTEM
+Create a system to redirect users after login:
+
+### Update: `src/backend/login_process.php`
+Add this after successful login:
+
+```php
+// After successful login, redirect to intended page or default
+$redirectTo = isset($_SESSION['redirect_after_login']) ? $_SESSION['redirect_after_login'] : '../pages/home.php';
+unset($_SESSION['redirect_after_login']);
+
+echo json_encode([
+    'success' => true, 
+    'message' => 'Login successful! Welcome back, ' . $user['first_name'] . '!',
+    'user' => [
+        'name' => $user['first_name'] . ' ' . $user['last_name'],
+        'email' => $user['email']
+    ],
+    'redirect' => $redirectTo
+]);
+```
+
+### Update: `src/validation/login-validation.js`
+Update the success handler:
+
+```javascript
+success: function(response) {
+    if (response.success) {
+        // Show success message
+        showLoginMessage('login-message', response.message, 'success');
+        // Update navbar to show logged in state
+        if (response.user) {
+            updateNavbarForLoggedInUser(response.user);
+        }
+        // Redirect to intended page or close modal
+        if (response.redirect) {
+            setTimeout(function() {
+                window.location.href = response.redirect;
+            }, 1500);
+        } else {
+            setTimeout(function() {
+                closeModal('login-modal');
+            }, 2000);
+        }
+    } else {
+        // Show error message
+        showLoginMessage('login-message', response.message, 'error');
+    }
+},
+```
+
+## STEP 7: PROTECT SENSITIVE PAGES
+For pages that require login, add this at the top:
+
+```php
+<?php
+require_once('../backend/session_check.php');
+requireLogin(); // This will redirect to home page if not logged in
+$user = getCurrentUser();
+?>
+```
+
+## TESTING YOUR USER-SPECIFIC SYSTEM
+
+### 1. Test as Guest User:
+- Visit pages without logging in
+- Should see "Login" and "Register" options
+- Should be able to browse public pages
+
+### 2. Test as Logged-in User:
+- Log in with your account
+- Should see your name in navbar
+- Should see "My Cart", "My Orders", "Profile Settings", "Logout"
+- Should be able to access protected pages
+
+### 3. Test Page Protection:
+- Try to access profile.php without logging in
+- Should be redirected to home page
+- After logging in, should be able to access protected pages
+
+## FILES TO CREATE:
+1. `src/backend/session_check.php` - Session management functions
+2. `src/pages/profile.php` - User profile page
+3. `src/pages/cart.php` - Shopping cart page
+4. `src/pages/orders.php` - User orders page
+
+## FILES TO UPDATE:
+1. All existing pages - Add session check at top
+2. `src/components/navbar.html` - Add user-specific navigation
+3. `src/backend/login_process.php` - Add redirect functionality
+4. `src/validation/login-validation.js` - Handle redirects
+
+This system will make your website truly dynamic and user-specific!

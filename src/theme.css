@@ -1,0 +1,255 @@
+/* Promise Shop - Minimalistic Pastel Theme */
+/* Based on theme.txt specifications */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Lato:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables for Pastel Color System */
+:root {
+  /* Primary Colors */
+  --blush-pink: #F7C6C7;        /* Primary Accent (Buttons, Links) */
+  --dusty-rose: #c98bb3;        /* Secondary Accent (Headers, Hover States) */
+  --pastel-white: #faf8f6;      /* Background Base (Cream Beige) */
+  --taupe-gray: #A5948B;        /* Text / Neutral Base */
+  --soft-warm-gray: #DCD6D0;    /* Light Background */
+  
+  /* Extended Color Palette */
+  --blush-pink-light: #F9D4D5;
+  --blush-pink-dark: #E8B3B4;
+  --dusty-rose-light: #E2B5AE;
+  --dusty-rose-dark: #C8968F;
+  --pastel-white-light: #E0C4B0;
+  --pastel-white-dark: #C19F85;
+  --taupe-gray-light: #B8A99F;
+  --taupe-gray-dark: #8F7F75;
+  --soft-warm-gray-light: #E8E2DD;
+  --soft-warm-gray-dark: #C9C0B8;
+  
+  /* Typography */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
+  
+  /* Shadows and Effects */
+  --shadow-soft: 0 4px 20px rgba(165, 148, 139, 0.1);
+  --shadow-medium: 0 8px 30px rgba(165, 148, 139, 0.15);
+  --shadow-strong: 0 12px 40px rgba(165, 148, 139, 0.2);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--blush-pink), var(--dusty-rose));
+  --gradient-secondary: linear-gradient(135deg, var(--dusty-rose), var(--pastel-white));
+  --gradient-background: linear-gradient(135deg, var(--soft-warm-gray), var(--pastel-white));
+}
+
+/* Base Styles */
+body {
+  background-color: var(--pastel-white);
+  color: var(--taupe-gray);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--taupe-gray-dark);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1.125rem; }
+
+/* Buttons */
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--blush-pink-dark), var(--dusty-rose-dark));
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--taupe-gray-dark);
+  border: 2px solid var(--taupe-gray);
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--taupe-gray);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--soft-warm-gray-light);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-4px);
+}
+
+/* Form Elements */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--soft-warm-gray-light);
+  border-radius: 8px;
+  background: white;
+  color: var(--taupe-gray-dark);
+  font-family: var(--font-body);
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--blush-pink);
+  box-shadow: 0 0 0 3px rgba(247, 198, 199, 0.1);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--taupe-gray-dark);
+  font-weight: 500;
+  font-family: var(--font-body);
+}
+
+/* Navigation */
+.nav-link {
+  color: var(--taupe-gray);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--dusty-rose);
+}
+
+/* Background Classes */
+.bg-primary { background-color: var(--blush-pink); }
+.bg-secondary { background-color: var(--dusty-rose); }
+.bg-accent { background-color: var(--pastel-white); }
+.bg-neutral { background-color: var(--taupe-gray); }
+.bg-light { background-color: var(--pastel-white); }
+
+/* Text Colors */
+.text-primary { color: var(--blush-pink); }
+.text-secondary { color: var(--dusty-rose); }
+.text-accent { color: var(--pastel-white); }
+.text-neutral { color: var(--taupe-gray); }
+.text-dark { color: var(--taupe-gray-dark); }
+
+/* Border Colors */
+.border-primary { border-color: var(--blush-pink); }
+.border-secondary { border-color: var(--dusty-rose); }
+.border-accent { border-color: var(--pastel-white); }
+.border-neutral { border-color: var(--taupe-gray); }
+.border-light { border-color: var(--soft-warm-gray); }
+
+/* Gradient Backgrounds */
+.bg-gradient-primary { background: var(--gradient-primary); }
+.bg-gradient-secondary { background: var(--gradient-secondary); }
+.bg-gradient-background { background: var(--gradient-background); }
+
+/* Shadows */
+.shadow-soft { box-shadow: var(--shadow-soft); }
+.shadow-medium { box-shadow: var(--shadow-medium); }
+.shadow-strong { box-shadow: var(--shadow-strong); }
+
+/* Spacing Utilities */
+.p-section { padding: 4rem 0; }
+.p-section-sm { padding: 2rem 0; }
+.p-section-lg { padding: 6rem 0; }
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+  
+  .p-section { padding: 2rem 0; }
+  .p-section-lg { padding: 3rem 0; }
+}
+
+/* Animation Classes */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--soft-warm-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--blush-pink);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dusty-rose);
+}
+
+/* Focus States for Accessibility */
+*:focus {
+  outline: 2px solid var(--blush-pink);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .btn-primary,
+  .btn-secondary {
+    background: none !important;
+    color: black !important;
+    border: 1px solid black !important;
+  }
+}
