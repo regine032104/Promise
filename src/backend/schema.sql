@@ -1,3 +1,10 @@
+-- Create Database
+create databse wedding_shop;
+
+-- Enter Database
+use wedding_shop
+
+
 -- Create customers table
 CREATE TABLE customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +35,7 @@ CREATE TABLE products (
 );
 
 -- Insert placeholder products with images
-INSERT INTO products (product_name, description, price, material, image_path) VALUES
+INSERT INTO wedding_shop.products (product_name, description, price, material, image_path) VALUES
 ('Classic Wedding Dress', 'Elegant white wedding dress with intricate lace details and flowing train', 2500.00, 'Silk and Lace', 'src/img/p-1.webp'),
 ('Modern Bridal Gown', 'Contemporary wedding dress with clean lines and minimalist design', 2200.00, 'Satin and Chiffon', 'src/img/p-2.jpg'),
 ('Vintage Style Dress', 'Retro-inspired wedding dress with vintage charm and classic silhouette', 2800.00, 'Tulle and Organza', 'src/img/p-3.webp'),
