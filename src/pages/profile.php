@@ -71,24 +71,24 @@ renderHeader([
 
 <div class="mx-auto max-w-screen-xl px-4">
     <div class="mb-12 text-center">
-        <h1 class="mb-4 text-4xl font-bold text-dark">Profile Settings</h1>
-        <p class="mx-auto max-w-3xl text-neutral">Manage your account information and shipping address.</p>
+        <h1 class="font-Tinos mb-4 text-4xl sm:text-5xl text-slate-900">Profile Settings</h1>
+        <p class="text-neutral">Manage your account information and shipping address.</p>
     </div>
 
     <?php if ($updateMessage && $updateType === 'success'): ?>
-        <div class="mb-8 rounded-lg border border-green-200 bg-green-50 p-4 text-green-700">
+        <div class="mb-8 rounded-lg border border-green-200 bg-green-50 p-4 font-Unna text-green-700">
             <?= htmlspecialchars($updateMessage); ?>
         </div>
     <?php elseif ($updateMessage): ?>
-        <div class="mb-8 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
+        <div class="mb-8 rounded-lg border border-red-200 bg-red-50 p-4 font-Unna text-red-700">
             <?= htmlspecialchars($updateMessage); ?>
         </div>
     <?php endif; ?>
 
     <div class="grid gap-8 lg:grid-cols-2">
         <div class="card">
-            <h2 class="mb-6 text-2xl font-semibold text-dark">Personal Information</h2>
-            <div class="space-y-4 text-neutral">
+            <h2 class="font-Tinos mb-6 text-2xl sm:text-3xl text-slate-900">Personal Information</h2>
+            <div class="text-slate-700 mb-8 max-w-2xl mx-auto">
                 <div>
                     <span class="form-label">Full Name</span>
                     <p><?= htmlspecialchars($userData['first_name'] . ' ' . $userData['last_name']); ?></p>
@@ -109,7 +109,7 @@ renderHeader([
         </div>
 
         <div class="card">
-            <h2 class="mb-6 text-2xl font-semibold text-dark">Shipping Address</h2>
+            <h2 class="font-Tinos mb-6 text-2xl sm:text-3xl text-slate-900">Shipping Address</h2>
             <form method="post" class="space-y-4">
                 <div>
                     <label for="street_address" class="form-label">Street Address</label>
@@ -142,7 +142,7 @@ renderHeader([
 
     <div class="mt-8">
         <div class="card">
-            <h2 class="mb-6 text-2xl font-semibold text-dark">Quick Actions</h2>
+            <h2 class="font-Tinos mb-6 text-2xl sm:text-3xl text-slate-900">Quick Actions</h2>
             <div class="grid gap-4 md:grid-cols-2">
                 <a href="orders.php" class="btn-secondary w-full justify-center">View My Orders</a>
                 <button type="button" class="btn-secondary w-full justify-center" onclick="logout()">Logout</button>

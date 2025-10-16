@@ -23,14 +23,14 @@ include('../components/hero.html');
       <!-- Introduction -->
       <div class="mb-12 text-center">
         <h2 class="font-Tinos text-3xl text-pink-950 mb-4">Our Universal Sizing System</h2>
-        <p class="text-pink-800 max-w-4xl mx-auto mb-6">
+        <p class="font-Unna text-base sm:text-lg md:text-xl text-slate-700 max-w-4xl mx-auto mb-6">
           We have created our own universal sizing chart that we use against all dresses on rack in store. We do not go off each dress's tagged sizes. With dresses being made from all over the world, size categories are not in sync. We have decided to have one system and measurements for each size category, every dress is measured and placed in a size on our universal list.
         </p>
-        <p class="text-pink-800 max-w-4xl mx-auto mb-6">
+        <p class="font-Unna text-base sm:text-lg md:text-xl text-slate-700 max-w-4xl mx-auto mb-6">
           Wedding Dresses tend to measure much smaller than everyday clothes. Whilst this may be the case for all sizes, size 14 and up can differ by several sizes. You need to know your measurements to know what size category you fall in. We have provided a size chart below to help you work out what size you fall into with our dresses.
         </p>
         <div class="bg-candy-cream rounded-lg p-6 max-w-4xl mx-auto">
-          <p class="text-pink-800 font-semibold">
+          <p class="text-pink-800 text-slate-700 font-semibold">
             All wedding dresses will need alterations to make the dress fit perfectly. Hemming is always required. Please make sure you allow enough time to have alterations done before your wedding. Check with your local seamstress to know what time they require to have alterations done in time for your wedding. This is a separate cost through a seamstress of your choice.
           </p>
         </div>

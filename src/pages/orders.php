@@ -79,7 +79,7 @@ renderHeader([
 <section class="py-16 md:py-20">
     <div class="mx-auto max-w-screen-xl px-4">
         <div class="mb-12 text-center">
-            <h1 class="mb-4 text-4xl font-bold text-dark">My Orders</h1>
+            <h1 class="font-Tinos mb-4 text-4xl sm:text-5xl text-slate-900">My Orders</h1>
             <p class="text-neutral">Track and manage your bridal orders with ease.</p>
         </div>
 
@@ -91,8 +91,8 @@ renderHeader([
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                         </svg>
                     </div>
-                    <h3 class="mb-4 text-xl font-semibold text-dark">No orders yet</h3>
-                    <p class="mb-6 text-neutral">You haven't placed any orders yet. Start shopping to see your orders here.</p>
+                    <h3 class="font-Tinos mb-4 text-xl sm:text-2xl text-slate-900">No orders yet</h3>
+                    <p class="font-Unna mb-6 text-slate-700">You haven't placed any orders yet. Start shopping to see your orders here.</p>
                     <a href="shop.php" class="btn-primary">Start Shopping</a>
                 </div>
             </div>

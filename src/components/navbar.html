@@ -6,6 +6,9 @@ $isLoggedIn = isLoggedIn();
 // Get user data directly from session for consistency
 $user_name = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : null;
 $user_email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null;
+
+// Get current page for active navigation highlighting
+$current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!-- NAVBAR -->
@@ -30,12 +33,12 @@ $user_email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null;
     <!-- NAV MENU -->
     <ul id="nav-menu"
       class="hidden w-full flex-col items-center space-y-2 text-center text-lg text-pink-950 sm:text-xl md:w-auto md:flex md:flex-row md:space-y-0 md:space-x-8">
-      <li><a href="../pages/home.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2">Home</a></li>
-      <li><a href="../pages/reservation.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2">Reservation</a>
+      <li><a href="../pages/home.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2 <?= $current_page === 'home.php' ? 'border-b-2 border-pink-500 text-pink-500' : '' ?>">Home</a></li>
+      <li><a href="../pages/reservation.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2 <?= $current_page === 'reservation.php' ? 'border-b-2 border-pink-500 text-pink-500' : '' ?>">Reservation</a>
       </li>
-      <li><a href="../pages/contact.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2">Contact</a></li>
+      <li><a href="../pages/contact.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2 <?= $current_page === 'contact.php' ? 'border-b-2 border-pink-500 text-pink-500' : '' ?>">Contact</a></li>
       <li class="relative group">
-        <a id="shop-toggle" href="../pages/shop.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2 flex items-center" aria-haspopup="true" aria-expanded="false">
+        <a id="shop-toggle" href="../pages/shop.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2 flex items-center <?= in_array($current_page, ['shop.php', 'collections.php', 'dresses-robes.php', 'veils-accessories.php']) ? 'border-b-2 border-pink-500 text-pink-500' : '' ?>" aria-haspopup="true" aria-expanded="false">
           Shop
           <svg class="w-2 h-4 ml-1 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor"
             viewBox="0 0 24 24">
@@ -49,21 +52,21 @@ $user_email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null;
           style="width: 220px;">
           <div class="py-2">
             <a href="../pages/collections.php"
-              class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors">
+              class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors <?= $current_page === 'collections.php' ? 'text-pink-500 bg-pink-50' : '' ?>">
               Collections
             </a>
             <a href="../pages/dresses-robes.php"
-              class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors">
+              class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors <?= $current_page === 'dresses-robes.php' ? 'text-pink-500 bg-pink-50' : '' ?>">
               Dresses/Robes
             </a>
             <a href="../pages/veils-accessories.php"
-              class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors">
+              class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors <?= $current_page === 'veils-accessories.php' ? 'text-pink-500 bg-pink-50' : '' ?>">
               Veils and Accessories
             </a>
           </div>
         </div>
       </li>
-      <li><a href="../pages/size-guide.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2">Size Guide</a>
+      <li><a href="../pages/size-guide.php" class="px-4 py-2 align-middle hover:text-pink-500 md:px-2 <?= $current_page === 'size-guide.php' ? 'border-b-2 border-pink-500 text-pink-500' : '' ?>">Size Guide</a>
       </li>
 
       <!-- USER-SPECIFIC NAVIGATION -->
@@ -93,13 +96,13 @@ $user_email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null;
                 <?php echo htmlspecialchars($user_email); ?>
               </p>
             </div>
-            <a href="../pages/cart.php" class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors">
+            <a href="../pages/cart.php" class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors <?= $current_page === 'cart.php' ? 'text-pink-500 bg-pink-50' : '' ?>">
               My Cart
             </a>
-            <a href="../pages/orders.php" class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors">
+            <a href="../pages/orders.php" class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors <?= $current_page === 'orders.php' ? 'text-pink-500 bg-pink-50' : '' ?>">
               My Orders
             </a>
-            <a href="../pages/profile.php" class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors">
+            <a href="../pages/profile.php" class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors <?= $current_page === 'profile.php' ? 'text-pink-500 bg-pink-50' : '' ?>">
               Profile Settings
             </a>
             <a href="../backend/logout.php" class="block px-4 py-3  hover:text-pink-500 hover:bg-light transition-colors">

@@ -99,7 +99,7 @@ renderHeader([
 ?>
 <div class="py-20 sm:py-32 cart content-wrapper">
     <div class="container mx-auto px-4 py-6 sm:px-6">
-        <h1 class="font-Tinos text-4xl text-pink-950 mb-8 text-center">Shopping Cart</h1>
+        <h1 class="font-Tinos mb-4 text-4xl sm:text-5xl text-slate-900 text-center">Shopping Cart</h1>
 
         <?php if (isset($_GET['error']) && $_GET['error'] == '1'): ?>
         <div class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">

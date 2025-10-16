@@ -71,16 +71,16 @@ renderHeader([
       </div>
 
       <div class="group relative cursor-pointer">
-        <div class="absolute top-3 right-3 flex items-center gap-3 p-1">
+        <div class="absolute top-3 right-3 flex items-center gap-3 p-1 z-30">
           <button id="reviews-prev" aria-label="Previous reviews" aria-controls="reviews-row"
-            class="cursor-pointer rounded-md border border-white/60 bg-white p-2 text-slate-900 opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100 focus:outline-none">
+            class="cursor-pointer rounded-md border-2 border-gray-300 bg-white p-3 text-slate-900 shadow-lg transition-all duration-300 focus:outline-none hover:bg-gray-50 hover:border-gray-400">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button id="reviews-next" aria-label="Next reviews" aria-controls="reviews-row"
-            class="cursor-pointer rounded-md border border-white/60 bg-white p-2 text-slate-900 opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100 focus:outline-none">
+            class="cursor-pointer rounded-md border-2 border-gray-300 bg-white p-3 text-slate-900 shadow-lg transition-all duration-300 focus:outline-none hover:bg-gray-50 hover:border-gray-400">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -90,10 +90,10 @@ renderHeader([
 
         <div class="overflow-hidden">
           <div id="reviews-row" tabindex="0"
-            class="reviews-row scrollbar-none flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-6"
-            role="list" aria-label="Customer reviews">
+            class="reviews-row flex gap-6 transition-transform duration-300 ease-in-out"
+            role="list" aria-label="Customer reviews" style="transform: translateX(0px);">
             <!-- Item 1 -->
-            <figure class="min-w-[220px] snap-center sm:min-w-[260px] md:min-w-[320px] md:snap-start lg:min-w-[360px]"
+            <figure class="w-80 flex-shrink-0"
               role="listitem">
               <div class="aspect-[3/4] overflow-hidden rounded-lg bg-white">
                 <img src="../img/p-1.webp" alt="Gwynne M." loading="lazy" decoding="async"
@@ -110,7 +110,7 @@ renderHeader([
             </figure>
 
             <!-- Item 2 -->
-            <figure class="min-w-[220px] snap-center sm:min-w-[260px] md:min-w-[320px] md:snap-start lg:min-w-[360px]">
+            <figure class="w-80 flex-shrink-0">
               <div class="aspect-[3/4] overflow-hidden rounded-lg bg-white">
                 <img src="../img/p-5.webp" alt="Brianna F.K." loading="lazy" decoding="async"
                   sizes="(min-width: 1024px) 360px, (min-width: 768px) 320px, (min-width: 640px) 260px, 220px"
@@ -126,7 +126,7 @@ renderHeader([
             </figure>
 
             <!-- Item 3 -->
-            <figure class="min-w-[220px] snap-center sm:min-w-[260px] md:min-w-[320px] md:snap-start lg:min-w-[360px]">
+            <figure class="w-80 flex-shrink-0">
               <div class="aspect-[3/4] overflow-hidden rounded-lg bg-white">
                 <img src="../img/p-3.webp" alt="Brittany F." loading="lazy" decoding="async"
                   sizes="(min-width: 1024px) 360px, (min-width: 768px) 320px, (min-width: 640px) 260px, 220px"
@@ -142,7 +142,7 @@ renderHeader([
             </figure>
 
             <!-- Item 4 -->
-            <figure class="min-w-[220px] snap-center sm:min-w-[260px] md:min-w-[320px] md:snap-start lg:min-w-[360px]">
+            <figure class="w-80 flex-shrink-0">
               <div class="aspect-[3/4] overflow-hidden rounded-lg bg-white">
                 <img src="../img/p-4.webp" alt="Camille R." loading="lazy" decoding="async"
                   sizes="(min-width: 1024px) 360px, (min-width: 768px) 320px, (min-width: 640px) 260px, 220px"
@@ -157,7 +157,7 @@ renderHeader([
             </figure>
 
             <!-- Item 5 -->
-            <figure class="min-w-[220px] snap-center sm:min-w-[260px] md:min-w-[320px] md:snap-start lg:min-w-[360px]">
+            <figure class="w-80 flex-shrink-0">
               <div class="aspect-[3/4] overflow-hidden rounded-lg bg-white">
                 <img src="../img/p-2.jpg" alt="Samantha P." loading="lazy" decoding="async"
                   sizes="(min-width: 1024px) 360px, (min-width: 768px) 320px, (min-width: 640px) 260px, 220px"
@@ -257,6 +257,107 @@ renderHeader([
   <a href="../pages/shop.php"
       class="inline-block rounded-full transition-colors hover:bg-pink-400 bg-pink-300 px-8 py-4 text-base font-Unna-bold text-white focus:outline-none sm:px-10 sm:py-5 sm:text-lg">SHOP NOW</a>
   </div>
+
+<script>
+// carousel functionality
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing carousel...');
+    
+    const reviewsRow = document.getElementById('reviews-row');
+    const prevButton = document.getElementById('reviews-prev');
+    const nextButton = document.getElementById('reviews-next');
+
+    if (!reviewsRow || !prevButton || !nextButton) {
+        console.error('Carousel elements not found!');
+        return;
+    }
+
+    const figures = reviewsRow.querySelectorAll('figure');
+    if (figures.length === 0) {
+        console.error('No carousel items found!');
+        return;
+    }
+
+    let currentIndex = 0;
+    const totalItems = figures.length;
+    let maxIndex = 0;
+
+    function calculateMaxIndex() {
+        const container = reviewsRow.parentElement;
+        const containerWidth = container.offsetWidth;
+        const firstItem = figures[0];
+        const itemWidth = firstItem.offsetWidth;
+        const gap = 24;
+        const itemWithGap = itemWidth + gap;
+        
+        const visibleItems = Math.floor(containerWidth / itemWithGap);
+        
+        maxIndex = Math.max(0, totalItems - visibleItems);
+        
+        console.log('Container width:', containerWidth, 'Item width:', itemWidth, 'Visible items:', visibleItems, 'Max index:', maxIndex);
+    }
+
+    function getScrollDistance() {
+        const firstItem = figures[0];
+        const itemWidth = firstItem.offsetWidth;
+        const gap = 24;
+        return itemWidth + gap;
+    }
+
+    function moveCarousel(direction) {
+        console.log('Moving carousel:', direction, 'currentIndex:', currentIndex, 'maxIndex:', maxIndex);
+        
+        if (direction === 'prev' && currentIndex > 0) {
+            currentIndex--;
+        } else if (direction === 'next' && currentIndex < maxIndex) {
+            currentIndex++;
+        } else {
+            console.log('Cannot move further - at boundary');
+            return;
+        }
+
+        const scrollDistance = getScrollDistance();
+        const translateX = -(currentIndex * scrollDistance);
+        
+        console.log('Moving to index:', currentIndex, 'translateX:', translateX);
+        reviewsRow.style.transform = `translateX(${translateX}px)`;
+        
+        updateButtons();
+    }
+
+    function updateButtons() {
+        prevButton.style.opacity = currentIndex === 0 ? '0.5' : '1';
+        nextButton.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+        prevButton.disabled = currentIndex === 0;
+        nextButton.disabled = currentIndex >= maxIndex;
+    }
+
+    prevButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Prev clicked');
+        moveCarousel('prev');
+    });
+
+    nextButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Next clicked');
+        moveCarousel('next');
+    });
+
+    function init() {
+        console.log('Initializing carousel with', totalItems, 'items');
+        calculateMaxIndex();
+        updateButtons();
+        console.log('Carousel ready! Max scroll position:', maxIndex);
+    }
+
+    requestAnimationFrame(() => {
+        setTimeout(init, 100);
+    });
+});
+</script>
 
 <?php
 renderFooter([
