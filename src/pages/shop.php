@@ -68,7 +68,8 @@ include('../components/hero.html');
               <div class="relative h-56 overflow-hidden sm:h-64 md:h-72 lg:h-80">
                 <a href="product-detail.php?id=<?= $product['product_id'] ?>">
                   <img src="../<?= str_replace('src/img/', 'img/', $product['image_path']) ?>"
-                    alt="<?= htmlspecialchars($product['product_name']) ?>"
+                    alt="<?= htmlspecialchars($product['product_name']) ?>" loading="lazy" decoding="async"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     class="h-full w-full object-cover hover:scale-105 transition-transform duration-300">
                 </a>
                 <button

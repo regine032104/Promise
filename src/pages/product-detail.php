@@ -41,7 +41,7 @@ renderHeader([
         <div class="grid gap-12 lg:grid-cols-2">
             <div>
                 <div class="aspect-square overflow-hidden rounded-3xl border border-pink-200 bg-white shadow-[0_10px_30px_rgba(236,72,153,0.08)]">
-                    <img src="../<?= str_replace('src/img/', 'img/', $product['image_path']); ?>" alt="<?= htmlspecialchars($product['product_name']); ?>" class="h-full w-full object-cover" />
+                    <img src="../<?= str_replace('src/img/', 'img/', $product['image_path']); ?>" alt="<?= htmlspecialchars($product['product_name']); ?>" loading="lazy" decoding="async" sizes="(min-width: 1024px) 50vw, 100vw" class="h-full w-full object-cover" />
                 </div>
             </div>
 

@@ -114,7 +114,7 @@ renderHeader([
                             <div class="mb-4 space-y-3">
                                 <?php foreach ($orderItems[$order['order_id']] as $item): ?>
                                     <div class="flex items-center gap-3 rounded-xl border border-light bg-gray-50 p-3">
-                                        <img src="../<?= str_replace('src/img/', 'img/', $item['image_path']); ?>" alt="<?= htmlspecialchars($item['product_name']); ?>" class="h-16 w-16 rounded-lg object-cover" />
+                                        <img src="../<?= str_replace('src/img/', 'img/', $item['image_path']); ?>" alt="<?= htmlspecialchars($item['product_name']); ?>" loading="lazy" decoding="async" class="h-16 w-16 rounded-lg object-cover" />
                                         <div class="flex-1">
                                             <h4 class="font-semibold text-dark"><?= htmlspecialchars($item['product_name']); ?></h4>
                                             <p class="text-sm text-neutral"><?= htmlspecialchars($item['material']); ?></p>
@@ -157,3 +157,4 @@ renderFooter([
     ]
 ]);
 ?>
+

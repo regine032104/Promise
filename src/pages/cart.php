@@ -97,7 +97,7 @@ renderHeader([
     'mainClass' => 'flex-1'
 ]);
 ?>
-<div class="py-40 cart content-wrapper">
+<div class="py-20 sm:py-32 cart content-wrapper">
     <div class="container mx-auto px-4 py-6 sm:px-6">
         <h1 class="font-Tinos text-4xl text-pink-950 mb-8 text-center">Shopping Cart</h1>
 
@@ -167,7 +167,7 @@ renderHeader([
                                     <tr class="border-t border-pink-100">
                                         <td class="p-4">
                                             <a href="product-detail.php?id=<?=$product['product_id']?>" class="block">
-                                                <img src="../<?=str_replace('src/img/', 'img/', $product['image_path'])?>" width="80" height="80" alt="<?=$product['product_name']?>" class="rounded-lg object-cover">
+                                                <img src="../<?=str_replace('src/img/', 'img/', $product['image_path'])?>" width="80" height="80" alt="<?=$product['product_name']?>" loading="lazy" decoding="async" class="rounded-lg object-cover">
                                             </a>
                                         </td>
                                         <td class="p-4">
